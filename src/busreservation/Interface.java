@@ -16,9 +16,17 @@ public class Interface extends JFrame {
     final private int window_Height = 400;
     private JPanel panelMessage; 
     private JPanel panelID;
-    private JPanel panelPasseword;
+    private JPanel panelPassword;
     private JPanel panelLogin;
     private JPanel panelCreateLog;
+    private JPanel empty1;
+    private JPanel empty2;
+    private JPanel empty3;
+    private JPanel empty4;
+    private JPanel empty5;
+    private JPanel empty6;
+    private JPanel empty7;
+    private JPanel panel;
     
     
     private JLabel message;
@@ -39,11 +47,12 @@ public class Interface extends JFrame {
         //exit when the window is closed 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        
         //set the type of layout 
-        setLayout(new GridLayout(5,5));
+        setLayout(new GridLayout(4,3));
         //build a panel 
         buildPanelInterface1();
-        
+        window.add(panel);
         //display the window 
         window.setVisible(true);
     }
@@ -52,6 +61,8 @@ public class Interface extends JFrame {
     private void buildPanelInterface1()
     {
         message = new JLabel("welcome !");
+        
+     
         
         //create two text field of 15 characters
         ID = new JTextField(15);
@@ -62,15 +73,45 @@ public class Interface extends JFrame {
         createLog = new JButton("Sign up");
         
         //add action when we click on the buttons 
-        
-        //create  panels 
         panel = new JPanel();
-        panel1 = new JPanel();
-        panel2 = new JPanel();
-        panel3 = new JPanel();
+        //create  panels 
+        panelMessage = new JPanel();
+        panelID = new JPanel();
+        panelPassword = new JPanel();
+        panelLogin = new JPanel();
+        panelCreateLog = new JPanel();
+        empty1 = new JPanel();
+        empty2 = new JPanel();
+        empty3 = new JPanel();
+        empty4 = new JPanel();
+        empty5 = new JPanel();
+        empty6 = new JPanel();
+        empty7= new JPanel();
         
         //add everything to panel
+        panelMessage.add(message);
+        panelID.add(ID);
+        panelPassword.add(password);
+        panelLogin.add(login);
+        panelCreateLog.add(createLog);
         panel.add(message);
-        panel1.add(ID)
+        
+        //layout of the connexion interface
+        panel.add(empty1);
+        panel.add(panelMessage);
+        panel.add(empty2);
+        panel.add(empty3);
+        panel.add(panelID);
+        panel.add(empty4);
+        panel.add(empty5);
+        panel.add(panelPassword);
+        panel.add(empty6);
+        panel.add(panelLogin);
+        panel.add(empty7);
+        panel.add(panelCreateLog);
+        
+        
     }
+
+    
 }
