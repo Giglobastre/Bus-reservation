@@ -31,10 +31,5 @@ public class customer {
     {
         customerNumber = getRandomNumber(min,max);
     }
-            
-    public reservation booking()
-    {
-        
-    }
-    
+   
 }

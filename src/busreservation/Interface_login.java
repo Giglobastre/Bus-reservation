@@ -5,127 +5,174 @@
  */
 package busreservation;
 
-import javax.swing.*;    // Needed for Swing classes
-import java.awt.event.*; // Needed for ActionListener Interface
-import java.awt.*;
+import javax.swing.*; // Needed for Swing classes
+import java.awt.*;    // Needed for GridLayout class
+import java.awt.event.*; //Needed for actionListener
+//Needed for connecting to database
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.*; 
+
 /**
  *
  * @author Benjamin WU
  */
 public class Interface_login extends JFrame {
-    
-   private JPanel panel;             // To reference a panel
-   private JLabel messageLabel;      // To reference a label
-   
-   private JLabel usrLabel;
-   private JLabel pwdLabel;
-   private JLabel space;
-   
-   private JTextField usr; // To reference a text field
-   private JTextField pwd;
-   private JButton connect;       // To reference a button
-   private final int WINDOW_WIDTH = 700;  // Window width
-   private final int WINDOW_HEIGHT = 700; // Window height
-    
-    public Interface_login()
-    {
-        // Set the window title.
-      setTitle("Connexion Window");
 
-      // Set the size of the window.
-      setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    final private int window_Width = 500;
+    final private int window_Height = 400;
 
-      // Specify what happens when the close button is clicked.
-      setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private JPanel panelMessage;
+    private JPanel panelID;
+    private JPanel panelPassword;
+    private JPanel panelLogin;
+    private JPanel panelCreateLog;
+    private JPanel panel;
+    private JPanel paneltext;
+    private JPanel panel_text;
 
-      // Build the panel and add it to the frame.
-      setLayout(new GridLayout(4,3));
-      buildPanel();
+    private JLabel Username;
+    private JLabel passwordco;
+    private JLabel welcome;
+    private JTextField ID;
+    private JTextField password;
+    private JButton login;
+    private JButton createLog;
 
-      // Add the panel to the frame's content pane.
-     
+    public Interface_login() {
 
-      //grid
-      setLayout(new GridLayout(4,3));
-     
-      // Display the window.
-      setVisible(true);
+        // JFrame window= new JFrame(); // INUTILE TU ES DEJA DANS UNE FRAME VU QUE TA CLASSE EXTENDS JFRAME
+        this.setSize(window_Width, window_Height); // ON PARLE CETTE Objet
+
+        //set a title to the window 
+        this.setTitle("User Interface"); //TJRS THIS
+
+        //exit when the window is closed 
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // THIS
+
+        //set the type of layout 
+        // this.setLayout(new GridLayout(3,3)); LA FRAME A PAS DE LAYOUT, ELLE POSSEDE JUSTE LE PANEL
+        JPanel pan;
+        pan = buildPanelInterface1(); // ON RECUPERE LE PANEL 
+        this.setContentPane(pan); // ON AJOUTE LE PANEL A LA FRAME
+
+        // window.add(panel);
+        //display the window 
+        this.setVisible(true);
+
     }
-    
-    private void buildPanel()
-   {
-       this.setLayout(new GridLayout(4,3));
-      // Create a label to display instructions.
-      messageLabel = new JLabel("Welcome");
 
-      // Create a text field 10 characters wide.
-      usr = new JTextField(25);
-      pwd = new JTextField(25);
-      space = new JLabel(" dw ");
-     
-      usrLabel = new JLabel("USERNAME");
-      pwdLabel = new JLabel("Password");
+    //first window (connexion window)
+    private JPanel buildPanelInterface1() {
 
-      // Create a button with the caption "Calculate".
-      connect = new JButton("Connect");
-     
+        welcome = new JLabel("welcome !");
+        Username = new JLabel("Username");
+        passwordco = new JLabel("password");
 
-      // Add an action listener to the button.
-      connect.addActionListener(new connectButtonListener());
+        //create two text field of 15 characters
+        ID = new JTextField(15);
+        password = new JTextField(15);
 
-      // Create a JPanel object and let the panel
-      // field reference it.
-      panel = new JPanel();
+        //create two buttons 
+        login = new JButton("login");
+        createLog = new JButton("Sign up");
+        
+        // Add an action listener to the button.
+      //calcButton.addActionListener(new CalcButtonListener());
+        login.addActionListener(new connectButtonListener());
 
-      // Add the label, text field, and button
-      // components to the panel.
-     
-      // o o o
-      // o o o
-      // o o o
-      // o o o
-     
-      // 1row of grid
-      panel.add(new JPanel()); //skip 1row col2
-      panel.add(messageLabel);
-      panel.add(new JPanel());
-     
-      panel.add(usrLabel);
-      panel.add(usr);
-      panel.add(new JPanel());
-     
-      panel.add(pwdLabel);
-      panel.add(pwd);
-      panel.add(new JPanel());
-     
-      panel.add(new JPanel());
-      panel.add(connect);
-     
-     
-      setContentPane(panel);
-      panel.setVisible(true);
-   }
-   
-   
-   private class connectButtonListener implements ActionListener
-   {
-      @Override
-      public void actionPerformed(ActionEvent e)
-      {
-         String usrw, pwdw;
-         final String admin="admin";
-         final String adminpwd="123456";
-         
-         usrw = usr.getText();
-         pwdw = pwd.getText();
-         
-         if(usr.equals(admin) && pwd.equals(adminpwd))
-         {
-             JOptionPane.showMessageDialog(null, "you are logged as an admin");
-         }
-         
-      }
-   }
-   
-   
+        //fond de l'ecran
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 3)); // C EST LE PANEL QUI A UN LAYOUT. LA FRAME POSSEDE JUSTE LE PANEL 
+
+//create  blocs panels 
+        panelMessage = new JPanel();
+        paneltext = new JPanel();
+        panel_text = new JPanel();
+        panelID = new JPanel();
+        panelPassword = new JPanel();
+        panelLogin = new JPanel();
+        panelCreateLog = new JPanel();
+
+        //add everything to panel
+        panelMessage.add(welcome);
+        paneltext.add(Username);
+        panel_text.add(passwordco);
+        panelID.add(ID);
+        panelPassword.add(password);
+        panelLogin.add(login);
+        panelCreateLog.add(createLog);
+
+        panel.add(new JPanel());
+        panel.add(panelMessage);
+        panel.add(new JPanel());
+        panel.add(paneltext);
+        panel.add(panelID);
+        panel.add(new JPanel());
+        panel.add(panel_text);
+        panel.add(panelPassword);
+        panel.add(new JPanel());
+        panel.add(panelLogin);
+        panel.add(new JPanel());
+        panel.add(panelCreateLog);
+
+        return panel;
+
+    }
+
+    private class connectButtonListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String input_usr, input_pwd;
+
+            input_usr = ID.getText();
+            input_pwd = password.getText();
+
+            //SQL
+            Connection conn = null;
+            try {
+                // db parameters - ptest is the name of the database
+                String url = "jdbc:mysql://localhost:3306/projet_bus_java";
+                String user = "root";
+                String password = "";
+
+                // create a connection to the database
+                conn = DriverManager.getConnection(url, user, password);
+                
+                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customer WHERE login=? AND  password=?");
+                stmt.setString(1,input_usr);
+                stmt.setString(2,input_pwd);
+                ResultSet rs=stmt.executeQuery();  
+                
+                
+                while (rs.next()){
+                    System.out.println(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getBoolean(6));
+                    if(rs.getBoolean(6)==true)
+                        System.out.println("admin");
+                    
+                    else if(rs.getBoolean(6)==false)
+                        System.out.println("pas admin");
+                }
+                
+                
+                conn.close();
+                
+            } catch (SQLException err) {
+                System.out.println(err.getMessage());
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+
+        }
+    }
 }
