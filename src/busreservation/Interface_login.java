@@ -14,7 +14,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.*; 
+import java.sql.*;
 
 /**
  *
@@ -79,10 +79,10 @@ public class Interface_login extends JFrame {
         //create two buttons 
         login = new JButton("login");
         createLog = new JButton("Sign up");
-        
+
         // Add an action listener to the button.
-      //calcButton.addActionListener(new CalcButtonListener());
         login.addActionListener(new connectButtonListener());
+        createLog.addActionListener(new createButtonListener());
 
         //fond de l'ecran
         panel = new JPanel();
@@ -123,7 +123,7 @@ public class Interface_login extends JFrame {
 
     }
 
-    private class connectButtonListener implements ActionListener{
+    private class connectButtonListener implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -142,25 +142,29 @@ public class Interface_login extends JFrame {
 
                 // create a connection to the database
                 conn = DriverManager.getConnection(url, user, password);
-                
+
                 PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customer WHERE login=? AND  password=?");
-                stmt.setString(1,input_usr);
-                stmt.setString(2,input_pwd);
-                ResultSet rs=stmt.executeQuery();  
-                
-                
-                while (rs.next()){
-                    System.out.println(rs.getString(1)+" "+rs.getString(2)+" "+rs.getString(3)+" "+rs.getString(4)+" "+rs.getString(5)+" "+rs.getBoolean(6));
-                    if(rs.getBoolean(6)==true)
+                stmt.setString(1, input_usr);
+                stmt.setString(2, input_pwd);
+                ResultSet rs = stmt.executeQuery();
+
+                while (rs.next()) {
+                    System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5) + " " + rs.getBoolean(6));
+                    if (rs.getBoolean(6) == true) {
                         System.out.println("admin");
+                    } 
                     
-                    else if(rs.getBoolean(6)==false)
+                    else if (rs.getBoolean(6) == false) {
                         System.out.println("pas admin");
+                        customer customer1 = new customer(rs.getInt(1),rs.getString(3),rs.getString(2),rs.getString(4),rs.getString(5));
+                        
+                        //create user interface
+                        new Interface_user(customer1);
+                    }
                 }
-                
-                
+
                 conn.close();
-                
+
             } catch (SQLException err) {
                 System.out.println(err.getMessage());
             } finally {
@@ -173,6 +177,15 @@ public class Interface_login extends JFrame {
                 }
             }
 
+        }
+    }
+
+    private class createButtonListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new Interface_signin();
+            dispose();
         }
     }
 }

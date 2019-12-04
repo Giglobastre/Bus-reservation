@@ -79,7 +79,7 @@ public class Interface_signin extends JFrame{
         message = new JLabel("Sign-up here");
         firstname = new JLabel("Firstname");
         lastname = new JLabel("Lastname");
-        username=new JLabel("Password");
+        username=new JLabel("Username");
         pwd=new JLabel("Password");
         
         Tfirstname=new JTextField(15);
@@ -118,8 +118,8 @@ public class Interface_signin extends JFrame{
         
         PanelTfirstname.add(Tfirstname);
         PanelTlastname.add(Tlastname);
-        PanelTpwd.add(Tusername);
-        PanelTusername.add(Tpassword);
+        PanelTpwd.add(Tpassword);
+        PanelTusername.add(Tusername);
         
         Panelbut.add(Submit);
 
@@ -160,11 +160,44 @@ private class submittButtonListener implements ActionListener {
             String input_fn, input_ln, input_uname, input_passwd;
 
             input_fn=Tfirstname.getText();
-            input_ln=Tpassword.getText();
+            input_ln=Tlastname.getText();
             input_uname=Tusername.getText();
             input_passwd=Tpassword.getText();
             
+            //SQL
+            Connection conn = null;
+            try {
+                // db parameters - ptest is the name of the database
+                String url = "jdbc:mysql://localhost:3306/projet_bus_java";
+                String user = "root";
+                String password = "";
+
+                // create a connection to the database
+                conn = DriverManager.getConnection(url, user, password);
+
+                PreparedStatement stmt = conn.prepareStatement("INSERT INTO customer(nom, prenom, login, password, admin) VALUES(?,?,?,?,false)");
+                stmt.setString(1, input_fn);
+                stmt.setString(2, input_ln);
+                stmt.setString(3, input_uname);
+                stmt.setString(4, input_passwd);
+                boolean query=stmt.execute();
+
+                conn.close();
+
+            } catch (SQLException err) {
+                System.out.println(err.getMessage());
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
             
+            new Interface_login();
+            dispose();
         }
 }
 }
