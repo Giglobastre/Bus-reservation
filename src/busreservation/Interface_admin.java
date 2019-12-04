@@ -64,7 +64,7 @@ public class Interface_admin extends JFrame{
     {
         //set JLabel and JButton
         admin_interface = new JLabel("Admin Interface");
-        welcome_phrase = new JLabel("Yes Master?");
+        welcome_phrase = new JLabel("What do you want to do? ");
         phrase2 = new JLabel("Would you like too..");
         search_button = new JButton("Search train");
         see_train_button = new JButton("See all trains");
