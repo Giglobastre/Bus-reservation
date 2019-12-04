@@ -66,10 +66,10 @@ public class Interface_admin extends JFrame{
         admin_interface = new JLabel("Admin Interface");
         welcome_phrase = new JLabel("What do you want to do? ");
         phrase2 = new JLabel("Would you like too..");
-        search_button = new JButton("Search train");
-        see_train_button = new JButton("See all trains");
+        search_button = new JButton("Search Bus");
+        see_train_button = new JButton("See all Bus");
         see_reservation_button = new JButton("See all reservations");
-        add_train_button = new JButton("Add train");
+        add_train_button = new JButton("Add Bus");
         deconnexion_button = new JButton("Deconnexion");
         
         //Initializing JPanel
