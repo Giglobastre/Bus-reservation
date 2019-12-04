@@ -14,22 +14,38 @@ import java.util.Random;
 public class customer {
     
     //declaration des attribues 
-    private int customerNumber;
-   // private ArrayList<reservation> reservationPerso = new ArrayList<reservation>();
-    private final int min =0;
-    private final int max = 50;
-    
-    // generate random number between 0 and 50
-    public int getRandomNumber(int mini, int maxi)
+    private int customerID;
+    private String Fname;
+    private String Lname;
+    private String user_name;
+    private String password;
+   
+    //constructor
+    public customer(int ID, String FN, String LN, String user, String pass)
     {
-        Random r = new Random();
-        return r.nextInt((max - min) + 1)+ min;
+        customerID = ID;
+        Fname = FN;
+        Lname = FN;
+        user_name = user;
+        password = pass;
+        
     }
     
-    //constructor
-    public customer()
+    private int getID()
     {
-        customerNumber = getRandomNumber(min,max);
+        return customerID;
+    }
+    private String getLn()
+    {
+        return Lname;
+    }
+    private String getFn()
+    {
+        return Fname;
+    }
+    private String getUser()
+    {
+        return user_name;
     }
    
 }
