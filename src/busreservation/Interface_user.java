@@ -35,8 +35,11 @@ public class Interface_user extends JFrame{
     private JButton see_reservation_button;
     private JButton deconnexion_button;
     
-    public Interface_user()
+    private customer cust;
+    
+    public Interface_user(customer cust1)
     {
+        cust = cust1;
         this.setSize(window_Width, window_Height);
 
         //set a title to the window 
@@ -97,6 +100,16 @@ public class Interface_user extends JFrame{
         bigPanel.add(new JPanel());
         bigPanel.add(deconnexion);
         
+        booking_button.addActionListener(new booking_function());
+        
         return bigPanel;
+    }
+    
+    private class booking_function implements ActionListener{
+        @Override
+          public void actionPerformed(ActionEvent e) {
+              new Interface_booking(cust);
+              dispose();
+        }
     }
 }
