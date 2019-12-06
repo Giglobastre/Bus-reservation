@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package busreservation;
-
 import javax.swing.*; // Needed for Swing classes
 import java.awt.*;    // Needed for GridLayout class
 import java.awt.event.*; //Needed for actionListener
@@ -15,13 +14,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.*;
-
 /**
  *
  * @author Benjamin WU
  */
-public class Interface_login extends JFrame {
-
+public class Interface_login_admin extends JFrame {
     final private int window_Width = 500;
     final private int window_Height = 400;
 
@@ -29,11 +26,10 @@ public class Interface_login extends JFrame {
     private JPanel panelID;
     private JPanel panelPassword;
     private JPanel panelLogin;
-    private JPanel panelCreateLog;
+    private JPanel panel_return;
     private JPanel panel;
     private JPanel paneltext;
     private JPanel panel_text;
-    private JPanel panel_return;
 
     private JLabel Username;
     private JLabel passwordco;
@@ -41,10 +37,9 @@ public class Interface_login extends JFrame {
     private JTextField ID;
     private JTextField password;
     private JButton login;
-    private JButton createLog;
     private JButton return1;
 
-    public Interface_login() {
+    public Interface_login_admin() {
 
         // JFrame window= new JFrame(); // INUTILE TU ES DEJA DANS UNE FRAME VU QUE TA CLASSE EXTENDS JFRAME
         this.setSize(window_Width, window_Height); // ON PARLE CETTE Objet
@@ -78,14 +73,13 @@ public class Interface_login extends JFrame {
         ID = new JTextField(15);
         password = new JTextField(15);
 
-        //create two buttons 
-        login = new JButton("Login");
-        createLog = new JButton("Sign up");
+        
+        login = new JButton("login");
         return1 = new JButton("Return");
+        
 
         // Add an action listener to the button.
         login.addActionListener(new connectButtonListener());
-        createLog.addActionListener(new createButtonListener());
         return1.addActionListener(new Return_Button());
 
         //fond de l'ecran
@@ -99,8 +93,8 @@ public class Interface_login extends JFrame {
         panelID = new JPanel();
         panelPassword = new JPanel();
         panelLogin = new JPanel();
-        panelCreateLog = new JPanel();
         panel_return = new JPanel();
+        
 
         //add everything to panel
         panelMessage.add(welcome);
@@ -109,8 +103,8 @@ public class Interface_login extends JFrame {
         panelID.add(ID);
         panelPassword.add(password);
         panelLogin.add(login);
-        panelCreateLog.add(createLog);
         panel_return.add(return1);
+        
 
         panel.add(new JPanel());
         panel.add(panelMessage);
@@ -122,8 +116,9 @@ public class Interface_login extends JFrame {
         panel.add(panelPassword);
         panel.add(new JPanel());
         panel.add(panelLogin);
-        panel.add(panelCreateLog);
+        panel.add(new JPanel());
         panel.add(panel_return);
+       
 
         return panel;
 
@@ -163,14 +158,7 @@ public class Interface_login extends JFrame {
                         dispose();
                     } 
                     
-                    else if (rs.getBoolean(6) == false) {
-                        System.out.println("pas admin");
-                        customer customer1 = new customer(rs.getString(1),rs.getString(3),rs.getString(2),rs.getString(4),rs.getString(5));
-                        
-                        //create user interface
-                        new Interface_user(customer1);
-                        dispose();
-                    }
+                    
                 }
 
                 conn.close();
@@ -187,15 +175,6 @@ public class Interface_login extends JFrame {
                 }
             }
 
-        }
-    }
-
-    private class createButtonListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            new Interface_signin();
-            dispose();
         }
     }
     

@@ -272,6 +272,8 @@ public class Interface_booking extends JFrame{
                     System.out.println(ex.getMessage());
                 }
             }
+            new Interface_user(cust_interface);
+            dispose();
           }
     }
 }

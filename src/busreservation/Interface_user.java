@@ -35,6 +35,7 @@ public class Interface_user extends JFrame{
     private JButton see_reservation_button;
     private JButton deconnexion_button;
     
+    
     private customer cust;
     
     public Interface_user(customer cust1)
@@ -64,7 +65,7 @@ public class Interface_user extends JFrame{
         welcome_phrase = new JLabel("What can we do for you?");
         booking_button = new JButton("Booking");
         see_reservation_button = new JButton("See your reservation");
-        deconnexion_button = new JButton("Deconnexion");
+        deconnexion_button = new JButton("Disconnect");
         
         //initializing JPanel
         bigPanel = new JPanel();
@@ -101,6 +102,7 @@ public class Interface_user extends JFrame{
         bigPanel.add(deconnexion);
         
         booking_button.addActionListener(new booking_function());
+        deconnexion_button.addActionListener(new disconnect_function());
         
         return bigPanel;
     }
@@ -109,7 +111,14 @@ public class Interface_user extends JFrame{
         @Override
           public void actionPerformed(ActionEvent e) {
               new Interface_booking(cust);
-              dispose();
+              dispose();    
+        }
+    }
+    private class disconnect_function implements ActionListener
+    {
+        @Override
+          public void actionPerformed(ActionEvent e) {
+              dispose();    
         }
     }
 }

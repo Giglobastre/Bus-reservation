@@ -49,6 +49,8 @@ public class Interface_signin_admin extends JFrame{
     private JTextField Tpassword;
     private JTextField Tusername;
     
+    private boolean admin = true;
+    
     private JButton Submit;
     
     public Interface_signin_admin() {
@@ -168,7 +170,7 @@ private class submittButtonListener implements ActionListener {
             Connection conn = null;
             try {
                 // db parameters - ptest is the name of the database
-                String url = "jdbc:mysql://localhost:3306/projet_bus_java";
+                String url = "jdbc:mysql://localhost:3308/projet_bus_java";
                 String user = "root";
                 String password = "";
 
@@ -180,6 +182,7 @@ private class submittButtonListener implements ActionListener {
                 stmt.setString(2, input_ln);
                 stmt.setString(3, input_uname);
                 stmt.setString(4, input_passwd);
+                
                 boolean query=stmt.execute();
 
                 conn.close();

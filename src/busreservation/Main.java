@@ -9,7 +9,9 @@ import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import javax.swing.*; // Needed for Swing classes
+import java.awt.*;    // Needed for GridLayout class
+import java.awt.event.*; //Needed for actionListener
 /**
  *
  * @author Benjamin WU
@@ -21,8 +23,15 @@ public class Main {
      */
     
     public static void main(String[] args) {
-        //new Interface_login();
-        new Interface_user();
+        
+        customer cust = new customer("1","ab","ac","ad","ae");
+      // new Interface_login();
+        //new Interface_user(cust);
+        //new Interface_admin();
+        //new Interface_signin();
+        new Interface_page_1();
+        //new Interface_signin_admin();
+        //new Interface_booking(cust);
     }
     
 }
