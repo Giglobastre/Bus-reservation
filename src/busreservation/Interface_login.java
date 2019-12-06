@@ -152,14 +152,18 @@ public class Interface_login extends JFrame {
                     System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5) + " " + rs.getBoolean(6));
                     if (rs.getBoolean(6) == true) {
                         System.out.println("admin");
+                        //pas besoin de creer un admin
+                        new Interface_admin();
+                        dispose();
                     } 
                     
                     else if (rs.getBoolean(6) == false) {
                         System.out.println("pas admin");
-                        customer customer1 = new customer(rs.getInt(1),rs.getString(3),rs.getString(2),rs.getString(4),rs.getString(5));
+                        customer customer1 = new customer(rs.getString(1),rs.getString(3),rs.getString(2),rs.getString(4),rs.getString(5));
                         
                         //create user interface
                         new Interface_user(customer1);
+                        dispose();
                     }
                 }
 
