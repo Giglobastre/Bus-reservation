@@ -34,6 +34,7 @@ public class Interface_login extends JFrame {
     private JPanel paneltext;
     private JPanel panel_text;
     private JPanel panel_return;
+    private JPanel panel_close;
 
     private JLabel Username;
     private JLabel passwordco;
@@ -42,6 +43,7 @@ public class Interface_login extends JFrame {
     private JTextField password;
     private JButton login;
     private JButton createLog;
+    private JButton close_button;
 
     public Interface_login() {
 
@@ -80,10 +82,12 @@ public class Interface_login extends JFrame {
         //create two buttons 
         login = new JButton("Login");
         createLog = new JButton("Sign up");
+        close_button = new JButton("Close");
 
         // Add an action listener to the button.
         login.addActionListener(new connectButtonListener());
         createLog.addActionListener(new createButtonListener());
+        close_button.addActionListener(new close_function());
 
         //fond de l'ecran
         panel = new JPanel();
@@ -97,6 +101,7 @@ public class Interface_login extends JFrame {
         panelPassword = new JPanel();
         panelLogin = new JPanel();
         panelCreateLog = new JPanel();
+        panel_close = new JPanel();
 
         //add everything to panel
         panelMessage.add(welcome);
@@ -106,9 +111,11 @@ public class Interface_login extends JFrame {
         panelPassword.add(password);
         panelLogin.add(login);
         panelCreateLog.add(createLog);
+        panel_close.add(close_button);
 
         panel.add(new JPanel());
-        panel.add(panelMessage);
+        //panel.add(panelMessage);*
+        panel.add(welcome);
         panel.add(new JPanel());
         panel.add(paneltext);
         panel.add(panelID);
@@ -118,7 +125,8 @@ public class Interface_login extends JFrame {
         panel.add(new JPanel());
         panel.add(panelLogin);
         panel.add(panelCreateLog);
-        panel.add(new JPanel());
+        //panel.add(new JPanel());
+        panel.add(panel_close);
 
         return panel;
 
@@ -190,6 +198,14 @@ public class Interface_login extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             new Interface_signin();
+            dispose();
+        }
+    }
+    
+    private class close_function implements ActionListener
+    {
+         @Override
+        public void actionPerformed(ActionEvent e) {
             dispose();
         }
     }
