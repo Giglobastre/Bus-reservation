@@ -112,8 +112,17 @@ public class Interface_admin extends JFrame{
         bigPanel.add(new JPanel());
         bigPanel.add(deconnexion);
         
+        deconnexion_button.addActionListener(new deco_listener());
+        
         return bigPanel;
     }
     
-    
+    private class deco_listener implements ActionListener{
+        @Override
+          public void actionPerformed(ActionEvent e) {
+              new Interface_login();
+              dispose();
+          }
 }
+}
+

@@ -42,7 +42,6 @@ public class Interface_login extends JFrame {
     private JTextField password;
     private JButton login;
     private JButton createLog;
-    private JButton return1;
 
     public Interface_login() {
 
@@ -81,12 +80,10 @@ public class Interface_login extends JFrame {
         //create two buttons 
         login = new JButton("Login");
         createLog = new JButton("Sign up");
-        return1 = new JButton("Return");
 
         // Add an action listener to the button.
         login.addActionListener(new connectButtonListener());
         createLog.addActionListener(new createButtonListener());
-        return1.addActionListener(new Return_Button());
 
         //fond de l'ecran
         panel = new JPanel();
@@ -100,7 +97,6 @@ public class Interface_login extends JFrame {
         panelPassword = new JPanel();
         panelLogin = new JPanel();
         panelCreateLog = new JPanel();
-        panel_return = new JPanel();
 
         //add everything to panel
         panelMessage.add(welcome);
@@ -110,7 +106,6 @@ public class Interface_login extends JFrame {
         panelPassword.add(password);
         panelLogin.add(login);
         panelCreateLog.add(createLog);
-        panel_return.add(return1);
 
         panel.add(new JPanel());
         panel.add(panelMessage);
@@ -123,7 +118,7 @@ public class Interface_login extends JFrame {
         panel.add(new JPanel());
         panel.add(panelLogin);
         panel.add(panelCreateLog);
-        panel.add(panel_return);
+        panel.add(new JPanel());
 
         return panel;
 
@@ -199,12 +194,4 @@ public class Interface_login extends JFrame {
         }
     }
     
-    private class Return_Button implements ActionListener
-    {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            new Interface_page_1();
-            dispose();
-        }
-    }
 }

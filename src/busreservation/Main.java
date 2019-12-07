@@ -25,11 +25,11 @@ public class Main {
     public static void main(String[] args) {
         
         customer cust = new customer("1","ab","ac","ad","ae");
-      // new Interface_login();
+        new Interface_login();
         //new Interface_user(cust);
         //new Interface_admin();
         //new Interface_signin();
-        new Interface_page_1();
+        //new Interface_page_1();
         //new Interface_signin_admin();
         //new Interface_booking(cust);
     }

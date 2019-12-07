@@ -14,14 +14,14 @@ import java.util.Random;
 public class customer {
     
     //declaration des attribues 
-    private int customerID;
+    private String customerID;
     private String Fname;
     private String Lname;
     private String user_name;
     private String password;
    
     //constructor
-    public customer(int ID, String FN, String LN, String user, String pass)
+    public customer(String ID, String FN, String LN, String user, String pass)
     {
         customerID = ID;
         Fname = FN;
@@ -31,19 +31,19 @@ public class customer {
         
     }
     
-    private int getID()
+    public String getID()
     {
         return customerID;
     }
-    private String getLn()
+    public String getLn()
     {
         return Lname;
     }
-    private String getFn()
+    public String getFn()
     {
         return Fname;
     }
-    private String getUser()
+    public String getUser()
     {
         return user_name;
     }

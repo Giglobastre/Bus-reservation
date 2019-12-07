@@ -118,6 +118,7 @@ public class Interface_user extends JFrame{
     {
         @Override
           public void actionPerformed(ActionEvent e) {
+              new Interface_login();
               dispose();    
         }
     }
