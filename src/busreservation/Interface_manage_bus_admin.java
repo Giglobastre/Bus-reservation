@@ -198,8 +198,10 @@ public class Interface_manage_bus_admin extends JFrame{
                 // create a connection to the database
                 conn = DriverManager.getConnection(url, user, password);
 
-                PreparedStatement stmt = conn.prepareStatement("DELETE FROM bus WHERE id = IDB");
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM bus WHERE id = ?");
+                stmt.setInt(1,IDB);
                 boolean query=stmt.execute();
+                
                 conn.close();
                 }
             
@@ -215,6 +217,9 @@ public class Interface_manage_bus_admin extends JFrame{
                 }
             }
               
+                
+                new Interface_manage_bus_admin();
+                dispose();
           }
     }
     
@@ -228,4 +233,3 @@ public class Interface_manage_bus_admin extends JFrame{
     }
     
 }
- 
