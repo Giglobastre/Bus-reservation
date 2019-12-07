@@ -27,6 +27,7 @@ public class Interface_manage_bus_admin extends JFrame{
     private JPanel top;
     private JPanel mid;
     private JPanel bigBot;
+    private JPanel jbox;
     
     private JLabel title;
     
@@ -69,6 +70,7 @@ public class Interface_manage_bus_admin extends JFrame{
         top = new JPanel();
         mid = new JPanel();
         bigBot =  new JPanel();
+        jbox = new JPanel();
         title = new JLabel("Manage your bus !");
         add_button = new JButton("Add Bus");
         delete_button = new JButton("Delete Bus");
@@ -146,13 +148,14 @@ public class Interface_manage_bus_admin extends JFrame{
              
              //initializing JComboBox
              choice = new JComboBox(buffer);
-        
+             jbox.add(choice);
+             
              bigTop.add(title, BorderLayout.CENTER);
              //top.add(new JPanel());
              top.add(scrollpane);
              //top.add(new JPanel());
              mid.add(new JPanel());
-             mid.add(choice);
+             mid.add(jbox);
              bigBot.add(add_button);
              bigBot.add(delete_button);
              bigBot.add(return_button);
@@ -199,9 +202,8 @@ public class Interface_manage_bus_admin extends JFrame{
                 conn = DriverManager.getConnection(url, user, password);
 
                 PreparedStatement stmt = conn.prepareStatement("DELETE FROM bus WHERE id = ?");
-                stmt.setInt(1,IDB);
+                stmt.setInt(1,IDB);              
                 boolean query=stmt.execute();
-                
                 conn.close();
                 }
             
@@ -216,10 +218,8 @@ public class Interface_manage_bus_admin extends JFrame{
                     System.out.println(ex.getMessage());
                 }
             }
-              
-                
-                new Interface_manage_bus_admin();
-                dispose();
+            new Interface_manage_bus_admin();
+            dispose();
           }
     }
     
@@ -233,3 +233,4 @@ public class Interface_manage_bus_admin extends JFrame{
     }
     
 }
+ 
