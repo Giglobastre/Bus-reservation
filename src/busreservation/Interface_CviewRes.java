@@ -31,10 +31,16 @@ public class Interface_CviewRes extends JFrame{
     private JPanel bigpanel;
     private JPanel affbus;
     private JPanel info;
+    private JPanel bas;
     
     private JScrollPane SP_affbus;
     
+    private JComboBox CB_affbus;
+    
     private customer cust;
+    
+    private JButton button_del;
+    private JButton button_ret;
     
     private JLabel idr;
     private JLabel idc;
@@ -66,22 +72,27 @@ public class Interface_CviewRes extends JFrame{
         //SQL ICI POUR REMPLUS AFFBUS ?
         bigpanel=new JPanel();
         bigpanel.setLayout(new GridLayout(2,1));
-        //                    x      y      w     h
-       // SP_affbus.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        button_del=new JButton("Cancel");
+        button_ret=new JButton("Return");
+        button_ret.addActionListener(new but_ret());
+        button_del.addActionListener(new del_res());
+        CB_affbus=new JComboBox();
+        bas= new JPanel();
+        bas.setLayout(new GridLayout(1,2));
         
         
         //SQL
             Connection conn = null;
             try {
                 // db parameters - ptest is the name of the database
-                String url = "jdbc:mysql://localhost:3306/projet_bus_java";
+                String url = "jdbc:mysql://localhost:3308/projet_bus_java";
                 String user = "root";
                 String password = "";
 
                 // create a connection to the database
                 conn = DriverManager.getConnection(url, user, password);
 
-                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM reservation WHERE IDC=?");
+                PreparedStatement stmt = conn.prepareStatement("SELECT reservation.IDR,bus.* FROM reservation, bus WHERE reservation.IDC=? AND bus.id=reservation.IDB");
                 stmt.setString(1,cust.getID());
                 ResultSet rs=stmt.executeQuery();
                 int size=0;
@@ -95,32 +106,11 @@ public class Interface_CviewRes extends JFrame{
                 rs.beforeFirst();
                 while(rs.next())
                 {
-                    affbus=new JPanel();
-                    affbus.setLayout(new GridLayout(4,1));
-                    
-                    idr=new JLabel(rs.getString(1));
-                    idb=new JLabel(rs.getString(2));
-                    idc=new JLabel(rs.getString(3));
-                    seat=new JLabel(rs.getString(4));
-                    
-                    affbus.add(idr);
-                    affbus.add(idb);
-                    affbus.add(idc);
-                    affbus.add(seat);
-                    
-                    info.add(affbus);
+                    CB_affbus.addItem(rs.getString(1)+" : Reservation ID "+" From :  "+rs.getString(3)+" To : "+rs.getString(4)+" The : "+rs.getString(5) +" To :" +rs.getString(6));
                 }
-                
-                
-                
-                int v=ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED;
-                int h=ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED;
-            
-                SP_affbus=new JScrollPane(info,v,h);
-                //SP_affbus.setBounds(0,0,40*size, 200);
         
-                bigpanel.add(SP_affbus);
-        
+                bigpanel.add(CB_affbus);
+                    
                 conn.close();
 
             } catch (SQLException err) {
@@ -135,45 +125,66 @@ public class Interface_CviewRes extends JFrame{
                 }
             }
             
-        
-        //bigpanel.pack();
+        bas.add(button_ret);
+        bas.add(button_del);
+        bigpanel.add(bas);
         
         return bigpanel;
     }
     
+    private class but_ret implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            new Interface_user(cust);
+        }
+    }
+    
+    private class del_res implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String res = (String)CB_affbus.getSelectedItem();
+            String tmp="";
+            int i=0,cnt=0;
+            while(!Character.toString(res.charAt(i)).equals(" "))
+            {
+                tmp+=res.charAt(i);
+                i++;
+            }
+            
+            int IDR_todel=Integer.parseInt(tmp);
+            //SQL
+            Connection conn = null;
+            try {
+                // db parameters - ptest is the name of the database
+                String url = "jdbc:mysql://localhost:3308/projet_bus_java";
+                String user = "root";
+                String password = "";
+
+                // create a connection to the database
+                conn = DriverManager.getConnection(url, user, password);
+
+                PreparedStatement stmt = conn.prepareStatement("DELETE FROM reservation WHERE IDR=?");
+                stmt.setInt(1,IDR_todel);
+                boolean query=stmt.execute();
+                        ///////////////////////////////////////////////////////////////////////////////////////////////
+                new Interface_CviewRes(cust); 
+                dispose();
+                        ///////////////////////////////////////////////////////////////////////////////////////////////
+                        
+                conn.close();
+
+            } catch (SQLException err) {
+                System.out.println(err.getMessage());
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+        }
+    }
 }
 
-/*//zone de texte de 20 lignes et 50 colonnes
-       
-       f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       f.setLocationRelativeTo(null);
-       f.setVisible(true);
-  
-       JScrollPane jsp = new JScrollPane(jta);
-       f.add(jsp, BorderLayout.CENTER);
-       f.pack();*/
-       
-
-    /*private static void Interface_CviewRes() {  
-        
-        
-  
-        // Create and set up the window.  
-        final JFrame frame = new JFrame("Scroll Pane Example");  
-  
-        // Display the window.  
-        frame.setSize(500, 500);  
-        frame.setVisible(true);  
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-  
-        // set flow layout for the frame  
-        frame.getContentPane().setLayout(new FlowLayout());  
-  
-        JTextArea textArea = new JTextArea(20, 20);  
-        JScrollPane scrollableTextArea = new JScrollPane(textArea);  
-  
-        scrollableTextArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-  
-        frame.getContentPane().add(scrollableTextArea);  
-    }  */
-   
