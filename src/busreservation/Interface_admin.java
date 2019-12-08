@@ -25,29 +25,30 @@ public class Interface_admin extends JFrame{
     private JPanel admin;
     private JPanel phrase;
     private JPanel phrase1;
-    /*private JPanel search;
+    private JPanel search;
     private JPanel see_train;
     private JPanel see_reservation;
-    private JPanel add_train;*/
+    private JPanel add_train;
     private JPanel deconnexion;
-    private JPanel button;
+    private JPanel manage;
     
     private JLabel admin_interface;
     private JLabel welcome_phrase;
     private JLabel phrase2;
     
-    private JButton Manage_bus_button;
-    private JButton Manage_customer_button;
-    private JButton Manage_reservation_button; 
-    private JButton add_bus_button;
+    private JButton search_button;
+    private JButton see_train_button;
+    private JButton see_reservation_button; 
+    private JButton add_train_button;
     private JButton deconnexion_button;
+    private JButton manage_customer_button;
     
     public Interface_admin()
     {
         this.setSize(window_Width, window_Height);
 
         //set a title to the window 
-        this.setTitle("Admin Interface"); //TJRS THIS
+        this.setTitle("User Interface_user"); //TJRS THIS
 
         //exit when the window is closed 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // THIS
@@ -56,7 +57,8 @@ public class Interface_admin extends JFrame{
         pan = buildPanel_interface_admin(); // ON RECUPERE LE PANEL 
         this.setContentPane(pan); // ON AJOUTE LE PANEL A LA FRAME
 
-        
+        // window.add(panel);
+        //display the window 
         this.setVisible(true);
     }
     
@@ -66,45 +68,69 @@ public class Interface_admin extends JFrame{
         admin_interface = new JLabel("Admin Interface");
         welcome_phrase = new JLabel("What do you want to do? ");
         phrase2 = new JLabel("Would you like too..");
-        Manage_bus_button = new JButton("Manage Bus");
-        Manage_customer_button = new JButton("Manage Customer");
-        Manage_reservation_button = new JButton("Manage reservations");
-        add_bus_button = new JButton("Add Bus");
-        deconnexion_button = new JButton("Disconnect");
+        search_button = new JButton("Search Bus");
+        see_train_button = new JButton("See all Bus");
+        see_reservation_button = new JButton("See all reservations");
+        add_train_button = new JButton("Add Bus");
+        deconnexion_button = new JButton("Deconnexion");
+        manage_customer_button=new JButton("Manage Customer");
         
         //Initializing JPanel
         bigPanel = new JPanel();
-        bigPanel.setLayout(new GridLayout(4, 1));
+        bigPanel.setLayout(new GridLayout(5, 3));
         
-        
-       //deconnexion = new JPanel();
-        button = new JPanel();
-        button.setLayout(new GridLayout(2,2));
-        
+        admin = new JPanel();
+        phrase = new JPanel();
+        phrase1 = new JPanel();
+        search = new JPanel();
+        see_train = new JPanel();
+        see_reservation = new JPanel();
+        add_train = new JPanel();
+        deconnexion = new JPanel();
+        manage=new JPanel();
         
         //add everything to a panel
-        
-        
-        button.add(Manage_bus_button);
-        button.add(Manage_customer_button);
-        button.add(Manage_reservation_button);
-        button.add(add_bus_button);
-        //deconnexion.add(deconnexion_button);
+        admin.add(admin_interface);
+        phrase.add(welcome_phrase);
+        phrase1.add(phrase2);
+        search.add(search_button);
+        see_train.add(see_train_button);
+        see_reservation.add(see_reservation_button);
+        add_train.add(add_train_button);
+        deconnexion.add(deconnexion_button);
+        manage.add(manage_customer_button);
         
         //add everything to bigPanel
-        bigPanel.add(admin_interface);
-        bigPanel.add(welcome_phrase);
-        bigPanel.add(button);
-        bigPanel.add(deconnexion_button);
+        bigPanel.add(new JPanel());
+        bigPanel.add(admin);
+        bigPanel.add(new JPanel());
+        bigPanel.add(phrase);
+        bigPanel.add(phrase1);
+        bigPanel.add(new JPanel());
+        bigPanel.add(search);
+        bigPanel.add(see_train);
+        bigPanel.add(manage);
+        bigPanel.add(see_reservation);
+        bigPanel.add(add_train);
+        bigPanel.add(new JPanel());
+        bigPanel.add(new JPanel());
+        bigPanel.add(new JPanel());
+        bigPanel.add(deconnexion);
         
         deconnexion_button.addActionListener(new deco_listener());
-        Manage_bus_button.addActionListener(new manage_bus_function());
-        Manage_reservation_button.addActionListener(new manage_reservation_function());
-        add_bus_button.addActionListener(new add_bus_function());
-        Manage_customer_button.addActionListener(new manage_customer_function());
+        see_reservation_button.addActionListener(new seeres_listener());
+        manage_customer_button.addActionListener(new view_users_listener());
         
         return bigPanel;
     }
+    
+    private class view_users_listener implements ActionListener{
+        @Override
+          public void actionPerformed(ActionEvent e) {
+              new Interface_admin_manage_user();
+              dispose();
+          }
+}
     
     private class deco_listener implements ActionListener{
         @Override
@@ -112,38 +138,14 @@ public class Interface_admin extends JFrame{
               new Interface_login();
               dispose();
           }
-    }
+}
     
-    private class manage_bus_function implements ActionListener{
+    private class seeres_listener implements ActionListener{
         @Override
-        public void actionPerformed(ActionEvent e){
-            new Interface_manage_bus_admin();
-            dispose();
-        }
-    }
-    
-    private class manage_reservation_function implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e){
-            
-            dispose();
-        }
-    }
-    
-    private class add_bus_function implements ActionListener{
-        @Override
-        public void actionPerformed(ActionEvent e){
-            new Interface_add_newBus();
-            dispose();
-        }
-    }
-    
-    private class manage_customer_function implements ActionListener{
-        @Override 
-        public void actionPerformed(ActionEvent e){
-            
-            dispose();
-        }
-    }
+          public void actionPerformed(ActionEvent e) {
+              new Interface_admin_SeeAllRes();
+              dispose();
+          }
+}
 }
 
