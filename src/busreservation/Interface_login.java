@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.*;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -53,6 +54,9 @@ public class Interface_login extends JFrame {
         //set a title to the window 
         this.setTitle("User Interface"); //TJRS THIS
 
+        //borderless
+        this.setUndecorated(true);
+        
         //exit when the window is closed 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // THIS
 
@@ -78,12 +82,19 @@ public class Interface_login extends JFrame {
         //create two text field of 15 characters
         ID = new JTextField(15);
         password = new JTextField(15);
+        
 
         //create two buttons 
         login = new JButton("Login");
         createLog = new JButton("Sign up");
         close_button = new JButton("Close");
 
+        //Color lightblue=new Color(0,153,153,1);
+        
+       
+        
+  
+        
         // Add an action listener to the button.
         login.addActionListener(new connectButtonListener());
         createLog.addActionListener(new createButtonListener());
@@ -113,6 +124,7 @@ public class Interface_login extends JFrame {
         panelCreateLog.add(createLog);
         panel_close.add(close_button);
 
+        
         panel.add(new JPanel());
         //panel.add(panelMessage);*
         panel.add(welcome);
@@ -128,6 +140,19 @@ public class Interface_login extends JFrame {
         //panel.add(new JPanel());
         panel.add(panel_close);
 
+        
+         //COLORS
+        login.setBackground(Color.darkGray);
+        createLog.setBackground(Color.darkGray);
+        close_button.setBackground(Color.darkGray);
+        //panel.setBackground(Color.white);
+        ID.setBorder(new LineBorder(Color.black,1));
+        password.setBorder(new LineBorder(Color.black,1));
+        
+        login.setForeground(Color.white);
+        createLog.setForeground(Color.white);
+        close_button.setForeground(Color.white);
+        
         return panel;
 
     }
