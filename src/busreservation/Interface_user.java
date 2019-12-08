@@ -24,9 +24,8 @@ public class Interface_user extends JFrame{
     private JPanel bigPanel;
     private JPanel user_interface;
     private JPanel phrase;
-    private JPanel booking;
-    private JPanel see_reservation;
-    private JPanel deconnexion;
+    private JPanel mid;
+    
     
     private JLabel user;
     private JLabel welcome_phrase;
@@ -61,7 +60,7 @@ public class Interface_user extends JFrame{
     private JPanel buildPanel_interface_user()
     {
         //set JLabel and JButton variables 
-        user = new JLabel("User interface");
+        user = new JLabel("USER INTERFACE");
         welcome_phrase = new JLabel("What can we do for you?");
         booking_button = new JButton("Booking");
         see_reservation_button = new JButton("See your reservation");
@@ -69,40 +68,36 @@ public class Interface_user extends JFrame{
         
         //initializing JPanel
         bigPanel = new JPanel();
-        bigPanel.setLayout(new GridLayout(5, 3));
+        bigPanel.setLayout(new GridLayout(4, 1));
+        
         
         user_interface = new JPanel();
+        user_interface.setLayout(new GridLayout(1,3));
         phrase = new JPanel();
-        booking = new JPanel();
-        see_reservation = new JPanel();
-        deconnexion = new JPanel();
+        phrase.setLayout(new GridLayout(1,2));
+        mid = new JPanel();
+        mid.setLayout(new GridLayout(1,2));
+        
         
         //add everything to a panel 
+        user_interface.add(new JPanel());
         user_interface.add(user);
+        user_interface.add(new JPanel());
         phrase.add(welcome_phrase);
-        booking.add(booking_button);
-        see_reservation.add(see_reservation_button);
-        deconnexion.add(deconnexion_button);
+        phrase.add(new JPanel());
+        mid.add(booking_button);
+        mid.add(see_reservation_button);
+        
         
         //add every panel to bigPanel
-        bigPanel.add(new JPanel());
         bigPanel.add(user_interface);
-        bigPanel.add(new JPanel());
         bigPanel.add(phrase);
-        bigPanel.add(new JPanel());
-        bigPanel.add(new JPanel());
-        bigPanel.add(booking);
-        bigPanel.add(new JPanel());
-        bigPanel.add(new JPanel());
-        bigPanel.add(see_reservation);
-        bigPanel.add(new JPanel());
-        bigPanel.add(new JPanel());
-        bigPanel.add(new JPanel());
-        bigPanel.add(new JPanel());
-        bigPanel.add(deconnexion);
+        bigPanel.add(mid);
+        bigPanel.add(deconnexion_button);
         
         booking_button.addActionListener(new booking_function());
         deconnexion_button.addActionListener(new disconnect_function());
+        see_reservation_button.addActionListener(new see_reservation_function());
         
         return bigPanel;
     }
@@ -120,6 +115,16 @@ public class Interface_user extends JFrame{
           public void actionPerformed(ActionEvent e) {
               new Interface_login();
               dispose();    
+        }
+    }
+    
+    private class see_reservation_function implements ActionListener
+    {
+        @Override
+        public void actionPerformed(ActionEvent e)
+        {
+            new Interface_CviewRes(cust);
+            dispose();
         }
     }
 }
