@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.*; 
+import javax.swing.border.LineBorder;
 /**
  *
  * @author Benjamin WU
@@ -48,7 +49,9 @@ public class Interface_admin extends JFrame{
 
         //set a title to the window 
         this.setTitle("Admin Interface"); //TJRS THIS
-
+        
+        //borderless
+        this.setUndecorated(true);
         //exit when the window is closed 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // THIS
        
@@ -90,6 +93,18 @@ public class Interface_admin extends JFrame{
         button.add(Manage_reservation_button);
         button.add(add_bus_button);
         //deconnexion.add(deconnexion_button);
+        
+        Manage_bus_button.setBackground(Color.darkGray);
+        Manage_customer_button.setBackground(Color.darkGray);
+        Manage_reservation_button.setBackground(Color.darkGray);
+        add_bus_button.setBackground(Color.darkGray);
+        deconnexion_button.setBackground(Color.darkGray);
+        
+        Manage_bus_button.setForeground(Color.white);
+        Manage_customer_button.setForeground(Color.white);
+        Manage_reservation_button.setForeground(Color.white);
+        add_bus_button.setForeground(Color.white);
+        deconnexion_button.setForeground(Color.white);
         
         //add everything to bigPanel
         bigPanel.add(admin_interface);
