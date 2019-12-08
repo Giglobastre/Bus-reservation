@@ -156,7 +156,8 @@ public class Interface_booking extends JFrame{
                     categories[i] = rs.getString(5);
                     i++;
                     categories[i] = rs.getString(6);
-                    i++;                
+                    i++;        
+                   // choice.addItem(rs.getString(1)+" : Origin "+": "+rs.getString(2)+" To : "+rs.getString(3)+" The : "+rs.getString(4) +" To :" +rs.getString(5));
                 }
                
                 
@@ -225,25 +226,72 @@ public class Interface_booking extends JFrame{
        
          @Override
           public void actionPerformed(ActionEvent e) {
-              String input_IDC, input_SEAT; //input_IDB
+              String input_IDC, input_SEAT,buffer; //input_IDB
               //trouve un int entre 0 et 50
               Random myRand = new Random();
               int randomInteger = myRand.nextInt(50);
+               //give the data contained in the combox selected
+              String input_IDB = (String)choice.getSelectedItem();
+              input_IDC = ID_cust;
+             buffer = Integer.toString(randomInteger);
              
-              
+              //find if the seat number is already taken
+               Connection conn = null;
+            try {
+                // db parameters - ptest is the name of the database
+                String url = "jdbc:mysql://localhost:3308/projet_bus_java";
+                String user = "root";
+                String password = "";
+
+                // create a connection to the database
+                conn = DriverManager.getConnection(url, user, password);
+                
+
+                PreparedStatement stmt = conn.prepareStatement("SELECT FROM reservation WHERE IDB = ?");
+                stmt.setString(1, input_IDB);
+                ResultSet rs = stmt.executeQuery();
+                int size = 0,i = 0;
+                while(rs.next())
+                    size++;
+                //si le bus est complet size >= 50 pop up refus
+                if(size >= 50)
+                {
+                    JOptionPane denied = new JOptionPane();
+                    denied.showMessageDialog(null,"No more places for this bus");
+                }
+                String array[] = new String[size];
+                while(rs.next())
+                {
+                    array[i] = rs.getString(4); //stock all seat number of a selected bus
+                    while(buffer == array[i])
+                        randomInteger = myRand.nextInt(50); 
+                    i++;
+                }
+               
+                
+                boolean query=stmt.execute();
+                conn.close();
+                 JOptionPane message = new JOptionPane();
+                 message.showMessageDialog(null,"Booking sucess");
+
+            } catch (SQLException err) {
+                System.out.println(err.getMessage());
+            } finally {
+                try {
+                    if (conn != null) {
+                        conn.close();
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
               input_SEAT = Integer.toString(randomInteger);
               System.out.println("seat ="+randomInteger);
               
-              //give the data contained in the combox selected
-              String input_IDB = (String)choice.getSelectedItem();
-              input_IDC = ID_cust;
-             
-             //input_IDB = "1234";
-             JOptionPane message = new JOptionPane();
-             message.showMessageDialog(null,"Booking sucess");
               
+              //add reservation to the data base
                //SQL
-            Connection conn = null;
+           
             try {
                 // db parameters - ptest is the name of the database
                 String url = "jdbc:mysql://localhost:3308/projet_bus_java";
@@ -259,7 +307,8 @@ public class Interface_booking extends JFrame{
                 stmt.setString(3,input_SEAT);
                 boolean query=stmt.execute();
                 conn.close();
-                
+                 JOptionPane message = new JOptionPane();
+                 message.showMessageDialog(null,"Booking sucess");
 
             } catch (SQLException err) {
                 System.out.println(err.getMessage());
