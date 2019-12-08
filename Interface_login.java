@@ -54,6 +54,9 @@ public class Interface_login extends JFrame {
         //set a title to the window 
         this.setTitle("User Interface"); //TJRS THIS
 
+        //borderless
+        this.setUndecorated(true);
+        
         //exit when the window is closed 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // THIS
 
@@ -76,6 +79,11 @@ public class Interface_login extends JFrame {
         Username = new JLabel("Username");
         passwordco = new JLabel("password");
 
+        //font
+        welcome.setFont(new Font("TimesRoman", Font.BOLD, 18));
+        Username.setFont(new Font("TimesRoman", Font.BOLD, 18));
+        passwordco.setFont(new Font("TimesRoman", Font.BOLD, 18));
+        
         //create two text field of 15 characters
         ID = new JTextField(15);
         password = new JTextField(15);
@@ -112,30 +120,30 @@ public class Interface_login extends JFrame {
         panel_close = new JPanel();
 
         //add everything to panel
-        panelMessage.add(welcome);
+        panelMessage.add(welcome, BorderLayout.CENTER);
         paneltext.add(Username);
         panel_text.add(passwordco);
         panelID.add(ID);
-        panelPassword.add(password);
-        panelLogin.add(login);
+        panelPassword.add(password, BorderLayout.CENTER);
+        panelLogin.add(login, BorderLayout.CENTER);
         panelCreateLog.add(createLog);
         panel_close.add(close_button);
 
         
         panel.add(new JPanel());
         //panel.add(panelMessage);*
-        panel.add(welcome);
+        panel.add(welcome,BorderLayout.CENTER);
         panel.add(new JPanel());
-        panel.add(paneltext);
-        panel.add(panelID);
+        panel.add(paneltext, BorderLayout.CENTER);
+        panel.add(panelID, BorderLayout.CENTER);
         panel.add(new JPanel());
-        panel.add(panel_text);
-        panel.add(panelPassword);
+        panel.add(panel_text, BorderLayout.CENTER);
+        panel.add(panelPassword, BorderLayout.CENTER);
         panel.add(new JPanel());
-        panel.add(panelLogin);
-        panel.add(panelCreateLog);
+        panel.add(panelLogin, BorderLayout.CENTER);
+        panel.add(panelCreateLog, BorderLayout.CENTER);
         //panel.add(new JPanel());
-        panel.add(panel_close);
+        panel.add(panel_close, BorderLayout.CENTER);
 
         
          //COLORS
